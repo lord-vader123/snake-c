@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/ioctl.h>
+#include <time.h>
 #include <unistd.h>
 
 int snakeX[100], snakeY[100];
@@ -29,6 +30,26 @@ void gameIni() {
   spawnApple();
 }
 
-void printGameArea(int width, int height) {}
+void printGameArea() {
+  for (int y = 0; y < size[0]; y++) {
+    for (int x = 0; x < size[1]; x++) {
+      if (x == snakeX[1] && y == snakeY[0]) {
+        printf("O");
+      } else if (x == apple[1] && y == apple[0]) {
+        printf("A");
+      } else {
+        printf(" ");
+      }
+    }
+    printf("\n");
+  }
+}
 
-int main(int argc, char *argv[]) { return 1; }
+int main(int argc, char *argv[]) {
+  srand(time(0));
+  getWindowSize();
+  gameIni();
+  printGameArea();
+
+  return 0;
+}
