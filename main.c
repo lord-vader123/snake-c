@@ -22,8 +22,8 @@ void getWindowSize() {
 }
 
 void spawnApple() {
-  apple[0] = rand() % size[0] - 1;
-  apple[1] = rand() % size[1] - 1;
+  apple[0] = (rand() % (size[0] - 1)) + 1;
+  apple[1] = (rand() % (size[1] - 1)) + 1;
 }
 
 void gameIni() {
@@ -93,7 +93,7 @@ void printGameArea() {
 }
 
 void eatApple() {
-  if (snakeX[0] == apple[0] && snakeY[0] == apple[1]) {
+  if (snakeX[0] == apple[1] && snakeY[0] == apple[0]) {
     snake_lenght++;
     spawnApple();
   }
@@ -118,7 +118,7 @@ void gameLoop() {
     moveSnake();
     eatApple();
 
-    usleep(1000);
+    usleep(10000);
   }
 }
 
