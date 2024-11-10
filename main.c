@@ -33,11 +33,15 @@ void gameIni() {
 void printGameArea() {
   for (int y = 0; y < size[0]; y++) {
     for (int x = 0; x < size[1]; x++) {
-      if (x == snakeX[1] && y == snakeY[0]) {
+      if (x == snakeX[0] && y == snakeY[0]) { // Pozycja węża
         printf("O");
-      } else if (x == apple[1] && y == apple[0]) {
+      } else if (x == apple[1] && y == apple[0]) { // Pozycja jabłka
         printf("A");
-      } else {
+      } else if (y == 0 || y == size[0] - 1) { // Górna i dolna ramka
+        printf("-");
+      } else if (x == 0 || x == size[1] - 1) { // Boczne ramki
+        printf("|");
+      } else { // Puste pole
         printf(" ");
       }
     }
