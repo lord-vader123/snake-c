@@ -2,12 +2,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/ioctl.h>
+#include <termios.h>
 #include <time.h>
 #include <unistd.h>
 
 int snakeX[100], snakeY[100];
 int snake_lenght = 1;
 int apple[2];
+
+int directionX = 1, directionY = 0;
 
 int size[2];
 
@@ -19,8 +22,8 @@ void getWindowSize() {
 }
 
 void spawnApple() {
-  apple[0] = rand() % size[0];
-  apple[1] = rand() % size[1];
+  apple[0] = rand() % size[0] - 1;
+  apple[1] = rand() % size[1] - 1;
 }
 
 void gameIni() {
@@ -30,22 +33,92 @@ void gameIni() {
   spawnApple();
 }
 
+void moveSnake() {
+  for (int i = snake_lenght - 1; i > 0; i++) {
+    snakeX[i] = snakeX[i - 1];
+    snakeY[i] = snakeY[i - 1];
+  }
+
+  snakeX[0] += directionX;
+  snakeY[0] += directionY;
+}
+
+void changeDirection(char direction) {
+  switch (direction) {
+  case 'w':
+    directionX = 0;
+    directionY = -1;
+    break;
+  case 's':
+    directionX = 0;
+    directionY = 1;
+    break;
+  case 'a':
+    directionX = -1;
+    directionY = 0;
+    break;
+  case 'd':
+    directionX = 1;
+    directionY = 0;
+    break;
+  }
+}
+
 void printGameArea() {
   for (int y = 0; y < size[0]; y++) {
     for (int x = 0; x < size[1]; x++) {
-      if (x == snakeX[0] && y == snakeY[0]) { // Pozycja węża
+      if (x == snakeX[0] && y == snakeY[0]) {
         printf("O");
-      } else if (x == apple[1] && y == apple[0]) { // Pozycja jabłka
+      } else if (x == apple[1] && y == apple[0]) {
         printf("A");
-      } else if (y == 0 || y == size[0] - 1) { // Górna i dolna ramka
+      } else if (y == 0 || y == size[0] - 1) {
         printf("-");
-      } else if (x == 0 || x == size[1] - 1) { // Boczne ramki
+      } else if (x == 0 || x == size[1] - 1) {
         printf("|");
-      } else { // Puste pole
-        printf(" ");
+      } else {
+        int isBody = 0;
+        for (int i = 1; i < snake_lenght; i++) {
+          if (x == snakeX[i] && y == snakeY[i]) {
+            printf("o");
+            isBody = 1;
+            break;
+          }
+        }
+        if (!isBody)
+          printf(" ");
       }
     }
     printf("\n");
+  }
+}
+
+void eatApple() {
+  if (snakeX[0] == apple[0] && snakeY[0] == apple[1]) {
+    snake_lenght++;
+    spawnApple();
+  }
+}
+
+void disableBuffering() {
+  struct termios t;
+  tcgetattr(STDIN_FILENO, &t);
+  t.c_lflag &= ~ICANON;
+  t.c_lflag &= ~ECHO;
+  tcsetattr(STDIN_FILENO, TCSANOW, &t);
+}
+
+void gameLoop() {
+  disableBuffering();
+
+  while (1) {
+    system("clear");
+    printGameArea();
+
+    changeDirection(getchar());
+    moveSnake();
+    eatApple();
+
+    usleep(1000);
   }
 }
 
@@ -53,7 +126,7 @@ int main(int argc, char *argv[]) {
   srand(time(0));
   getWindowSize();
   gameIni();
-  printGameArea();
+  gameLoop();
 
   return 0;
 }
