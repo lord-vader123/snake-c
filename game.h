@@ -1,11 +1,11 @@
 #ifndef GAME_H
 #define GAME_H
 
-extern int snakeX[], snakeY[];
+extern int *snakeX, *snakeY;
 extern int snake_lenght;
-extern int apple[];
+extern int *apple;
 extern int directionX, directionY;
-extern int size[];
+extern int *size;
 
 void getWindowSize();
 void spawnApple();

@@ -1,5 +1,6 @@
 #include "game.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 void moveSnake() {
   for (int i = snake_lenght - 1; i > 0; i++) {
@@ -47,4 +48,9 @@ void checkCollision(int *isRunning) {
     *isRunning = 0;
     printf("Game ended, you lost :(");
   }
+}
+
+void spawnApple() {
+  apple[0] = (rand() % (size[0] - 1)) + 1;
+  apple[1] = (rand() % (size[1] - 1)) + 1;
 }
