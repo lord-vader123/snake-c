@@ -1,4 +1,5 @@
 #include <asm-generic/ioctls.h>
+#include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/ioctl.h>
@@ -115,6 +116,8 @@ void disableBuffering() {
   t.c_lflag &= ~ICANON;
   t.c_lflag &= ~ECHO;
   tcsetattr(STDIN_FILENO, TCSANOW, &t);
+
+  fcntl(STDIN_FILENO, F_SETFL, O_NONBLOCK);
 }
 
 void gameLoop() {
@@ -126,11 +129,15 @@ void gameLoop() {
     system("clear");
     printGameArea();
 
-    changeDirection(getchar());
+    int inputChar = getchar();
+    if (inputChar != EOF) {
+      changeDirection(inputChar);
+    }
+
     moveSnake();
     checkCollision(&isRunning);
 
-    usleep(10000);
+    usleep(100000);
   }
 }
 
