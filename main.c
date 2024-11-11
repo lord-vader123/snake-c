@@ -61,6 +61,8 @@ void changeDirection(char direction) {
     directionX = 1;
     directionY = 0;
     break;
+  default:
+    break;
   }
 }
 
@@ -71,7 +73,7 @@ void printGameArea() {
         printf("O");
       } else if (x == apple[1] && y == apple[0]) {
         printf("A");
-      } else if (y == 0 || y == size[0] - 1) {
+      } else if (y == 1 || y == size[0] - 1) {
         printf("-");
       } else if (x == 0 || x == size[1] - 1) {
         printf("|");
@@ -99,6 +101,14 @@ void eatApple() {
   }
 }
 
+void checkCollision(int *isRunning) {
+  if (snakeY[0] == 1 || snakeY[0] == size[0] - 1 || snakeX[0] == 0 ||
+      snakeX[0] == size[1] - 1) {
+    *isRunning = 0;
+    printf("Game ended, you lost :(");
+  }
+}
+
 void disableBuffering() {
   struct termios t;
   tcgetattr(STDIN_FILENO, &t);
@@ -110,13 +120,15 @@ void disableBuffering() {
 void gameLoop() {
   disableBuffering();
 
-  while (1) {
+  int isRunning = 1;
+
+  while (isRunning) {
     system("clear");
     printGameArea();
 
     changeDirection(getchar());
     moveSnake();
-    eatApple();
+    checkCollision(&isRunning);
 
     usleep(10000);
   }
