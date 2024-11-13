@@ -48,7 +48,7 @@ void gameLoop() {
     checkEVERYTHING(&isRunning);
 
     usleep(100000);
-    system("clear");
+    printf("\033[H\033[J");
   }
 }
 
