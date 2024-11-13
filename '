@@ -27,12 +27,11 @@ void gameIni() {
 
   snakeX[0] = size[0] / 2;
   snakeY[0] = size[1] / 2;
-
-  spawnApple();
 }
 
 void gameLoop() {
   disableBuffering();
+  spawnApple();
 
   int isRunning = 1;
 
@@ -45,7 +44,7 @@ void gameLoop() {
     }
 
     moveSnake();
-    checkEVERYTHING(&isRunning);
+    checkCollision(&isRunning);
 
     usleep(100000);
     system("clear");
