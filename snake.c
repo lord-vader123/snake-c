@@ -36,8 +36,15 @@ void changeDirection(char direction) {
 }
 
 void eatApple() {
-  if (snakeX[0] == apple[1] && snakeY[0] == apple[0]) {
+  if (snakeX[0] == apple[0] && snakeY[0] == apple[1]) {
     snake_lenght++;
+    snakeX = realloc(snakeX, sizeof(int) * snake_lenght);
+    snakeY = realloc(snakeY, sizeof(int) * snake_lenght);
+
+    if (snakeX == NULL || snakeY == NULL) {
+      printf("Memory allocation problem");
+      exit(1);
+    }
     spawnApple();
   }
 }
