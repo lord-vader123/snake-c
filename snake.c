@@ -3,9 +3,6 @@
 #include <stdlib.h>
 
 void moveSnake() {
-  if (snake_lenght <= 1)
-    return;
-
   for (int i = snake_lenght - 1; i > 0; i--) {
     snakeX[i] = snakeX[i - 1];
     snakeY[i] = snakeY[i - 1];

@@ -5,13 +5,13 @@
 #include <unistd.h>
 
 int *snakeX, *snakeY;
-int snake_lenght = 5;
+int snake_lenght;
 int *apple;
 int directionX = 0, directionY = 0;
 int size[2];
 
 void gameIni() {
-  snake_lenght = 5;
+  snake_lenght = 1;
 
   apple = (int *)malloc(sizeof(int) * 2);
 
@@ -34,9 +34,6 @@ void gameLoop() {
 
   spawnApple();
   int isRunning = 1;
-
-  changeDirection(getchar());
-  moveSnake();
 
   while (isRunning) {
     printGameArea();
