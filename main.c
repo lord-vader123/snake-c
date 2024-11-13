@@ -25,8 +25,8 @@ void gameIni() {
 
   getWindowSize();
 
-  snakeX[0] = size[0] / 2;
-  snakeY[0] = size[1] / 2;
+  snakeX[0] = size[1] / 2;
+  snakeY[0] = size[0] / 2;
 
   spawnApple();
 }
