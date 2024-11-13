@@ -56,7 +56,7 @@ int checkCollisionSelf() {
   }
   for (int i = 1; i < snake_lenght; i++) {
     if (snakeX[0] == snakeX[i] && snakeY[0] == snakeY[i]) {
-      printf("You hit yourself, dum dum D:");
+      printf("You hit yourself, dum dum D:\n");
       return 1;
     }
   }
@@ -66,7 +66,7 @@ int checkCollisionSelf() {
 int checkCollisionBorder() {
   if (snakeY[0] == 1 || snakeY[0] == size[0] - 1 || snakeX[0] == 0 ||
       snakeX[0] == size[1] - 1) {
-    printf("You hit the wall!");
+    printf("You hit the wall!\n");
     return 1;
   }
   return 0;
