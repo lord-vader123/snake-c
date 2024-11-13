@@ -5,7 +5,7 @@ extern int *snakeX, *snakeY;
 extern int snake_lenght;
 extern int *apple;
 extern int directionX, directionY;
-extern int *size;
+extern int size[2];
 
 void getWindowSize();
 void spawnApple();

@@ -6,23 +6,27 @@
 
 int *snakeX, *snakeY;
 int snake_lenght = 5;
-int *apple = NULL;
+int *apple;
 int directionX = 0, directionY = 0;
-int *size = NULL;
+int size[2];
 
 void gameIni() {
   snake_lenght = 5;
 
+  apple = (int *)malloc(sizeof(int) * 2);
+
   snakeX = (int *)malloc(sizeof(int) * snake_lenght);
   snakeY = (int *)malloc(sizeof(int) * snake_lenght);
 
-  if (snakeX == NULL || snakeY == NULL) {
-    printf("Błąd przy alokacji pamięci.\n");
+  if (snakeX == NULL || snakeY == NULL || apple == NULL) {
+    printf("Memory allocation problem.\n");
     exit(1);
   }
 
-  snakeX[0] = size[0];
-  snakeY[0] = size[1];
+  getWindowSize();
+
+  snakeX[0] = size[0] / 2;
+  snakeY[0] = size[1] / 2;
 }
 
 void gameLoop() {
@@ -32,7 +36,7 @@ void gameLoop() {
   int isRunning = 1;
 
   while (isRunning) {
-    system("clear");
+    printf("size[0]: %d, size[1]: %d\n", snakeX[0], snakeY[0]);
     printGameArea();
 
     int inputChar = getchar();
@@ -47,11 +51,18 @@ void gameLoop() {
   }
 }
 
+void releaseResources() {
+  free(snakeX);
+  free(snakeY);
+  free(apple);
+}
+
 int main(int argc, char *argv[]) {
   srand(time(0));
   getWindowSize();
   gameIni();
   gameLoop();
+  releaseResources();
 
   return 0;
 }
