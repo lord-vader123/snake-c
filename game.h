@@ -18,5 +18,5 @@ void checkCollision(int *isRunning);
 int checkCollisionSelf();
 int checkCollisionBorder();
 void disableBuffering();
-
+void checkEVERYTHING();
 #endif
