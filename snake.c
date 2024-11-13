@@ -45,12 +45,34 @@ void eatApple() {
   }
 }
 
-void checkCollision(int *isRunning) {
+int checkCollisionSelf() {
+  if (snake_lenght < 1) {
+    return 0;
+  }
+  for (int i = 1; i < snake_lenght; i++) {
+    if (snakeX[0] == snakeX[i] && snakeY[0] == snakeY[i]) {
+      printf("You hit yourself, dum dum D:");
+      return 1;
+    }
+  }
+  return 0;
+}
+
+int checkCollisionBorder() {
   if (snakeY[0] == 1 || snakeY[0] == size[0] - 1 || snakeX[0] == 0 ||
       snakeX[0] == size[1] - 1) {
+    printf("You hit the wall!");
+    return 1;
+  }
+  return 0;
+}
+
+void checkCollision(int *isRunning) {
+  if (checkCollisionBorder() || checkCollisionSelf()) {
     *isRunning = 0;
     printf("Game ended, you lost :(");
   }
+  return;
 }
 
 void spawnApple() {

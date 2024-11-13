@@ -15,6 +15,8 @@ void changeDirection(char direction);
 void printGameArea();
 void eatApple();
 void checkCollision(int *isRunning);
+int checkCollisionSelf();
+int checkCollisionBorder();
 void disableBuffering();
 
 #endif

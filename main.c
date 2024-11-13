@@ -35,8 +35,10 @@ void gameLoop() {
   spawnApple();
   int isRunning = 1;
 
+  changeDirection(getchar());
+  moveSnake();
+
   while (isRunning) {
-    printf("size[0]: %d, size[1]: %d\n", snakeX[0], snakeY[0]);
     printGameArea();
 
     int inputChar = getchar();
