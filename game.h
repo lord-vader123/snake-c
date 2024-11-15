@@ -19,4 +19,6 @@ int checkCollisionSelf();
 int checkCollisionBorder();
 void disableBuffering();
 void checkEVERYTHING(int *isRunning);
+int getPlayableSize();
+int checkWin();
 #endif

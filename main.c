@@ -37,6 +37,7 @@ void gameLoop() {
   int isRunning = 1;
 
   while (isRunning) {
+    printf("\033[H\033[J");
     printGameArea();
 
     int inputChar = getchar();
@@ -47,8 +48,12 @@ void gameLoop() {
     moveSnake();
     checkEVERYTHING(&isRunning);
 
+    if (checkWin()) {
+      isRunning = 0;
+      printf("You won! :D");
+    }
+
     usleep(100000);
-    printf("\033[H\033[J");
   }
 }
 
@@ -59,7 +64,7 @@ void releaseResources() {
 }
 
 int main(int argc, char *argv[]) {
-  srand(time(0));
+  srand(time(NULL));
   gameIni();
   gameLoop();
   releaseResources();

@@ -6,7 +6,7 @@ void printGameArea() {
     for (int column = 0; column < size[1]; column++) {
       if (column == snakeX[0] && row == snakeY[0]) {
         printf("O");
-      } else if (column == apple[1] && row == apple[0]) {
+      } else if (column == apple[0] && row == apple[1]) {
         printf("A");
       } else if (row == 1 || row == size[0] - 1) {
         printf("-");

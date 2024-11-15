@@ -36,7 +36,7 @@ void changeDirection(char direction) {
 }
 
 void eatApple() {
-  if (snakeX[0] == apple[1] && snakeY[0] == apple[0]) {
+  if (snakeX[0] == apple[0] && snakeY[0] == apple[1]) {
     printf("You hit the apple!");
     snake_lenght++;
     snakeX = realloc(snakeX, sizeof(int) * snake_lenght);
@@ -80,9 +80,11 @@ void checkCollision(int *isRunning) {
   return;
 }
 
+int checkWin() { return snake_lenght == getPlayableSize(); }
+
 void spawnApple() {
-  apple[0] = (rand() % (size[0] - 1)) + 1;
-  apple[1] = (rand() % (size[1] - 1)) + 1;
+  apple[0] = (rand() % (size[1] - 2)) + 1;
+  apple[1] = (rand() % (size[0] - 2)) + 1;
 }
 
 void checkEVERYTHING(int *isRunning) {
