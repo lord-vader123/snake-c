@@ -36,7 +36,7 @@ void changeDirection(char direction) {
 }
 
 void eatApple() {
-  if (snakeX[0] == apple[1] && snakeY[0] == apple[0]) {
+  if (snakeX[0] == apple[0] && snakeY[0] == apple[1]) {
     printf("You hit the apple!");
     snake_lenght++;
     snakeX = realloc(snakeX, sizeof(int) * snake_lenght);
@@ -56,7 +56,7 @@ int checkCollisionSelf() {
   }
   for (int i = 1; i < snake_lenght; i++) {
     if (snakeX[0] == snakeX[i] && snakeY[0] == snakeY[i]) {
-      printf("You hit yourself, dum dum D:");
+      printf("You hit yourself, dum dum D:\n");
       return 1;
     }
   }
@@ -66,7 +66,7 @@ int checkCollisionSelf() {
 int checkCollisionBorder() {
   if (snakeY[0] == 1 || snakeY[0] == size[0] - 1 || snakeX[0] == 0 ||
       snakeX[0] == size[1] - 1) {
-    printf("You hit the wall!");
+    printf("You hit the wall!\n");
     return 1;
   }
   return 0;
@@ -80,9 +80,11 @@ void checkCollision(int *isRunning) {
   return;
 }
 
+int checkWin() { return snake_lenght == getPlayableSize(); }
+
 void spawnApple() {
-  apple[0] = (rand() % (size[0] - 1)) + 1;
-  apple[1] = (rand() % (size[1] - 1)) + 1;
+  apple[0] = (rand() % (size[1] - 2)) + 1;
+  apple[1] = (rand() % (size[0] - 2)) + 1;
 }
 
 void checkEVERYTHING(int *isRunning) {

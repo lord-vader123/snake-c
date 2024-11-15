@@ -11,6 +11,12 @@ void getWindowSize() {
   size[1] = w.ws_col;
 }
 
+int getPlayableSize() {
+  int width = size[0] - 1;
+  int height = size[1] - 1;
+  return width * height;
+}
+
 void disableBuffering() {
   struct termios t;
   tcgetattr(STDIN_FILENO, &t);

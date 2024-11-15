@@ -25,8 +25,8 @@ void gameIni() {
 
   getWindowSize();
 
-  snakeX[0] = size[0] / 2;
-  snakeY[0] = size[1] / 2;
+  snakeX[0] = size[1] / 2;
+  snakeY[0] = size[0] / 2;
 
   spawnApple();
 }
@@ -37,6 +37,7 @@ void gameLoop() {
   int isRunning = 1;
 
   while (isRunning) {
+    printf("\033[H\033[J");
     printGameArea();
 
     int inputChar = getchar();
@@ -47,8 +48,12 @@ void gameLoop() {
     moveSnake();
     checkEVERYTHING(&isRunning);
 
+    if (checkWin()) {
+      isRunning = 0;
+      printf("You won! :D");
+    }
+
     usleep(100000);
-    system("clear");
   }
 }
 
@@ -59,8 +64,7 @@ void releaseResources() {
 }
 
 int main(int argc, char *argv[]) {
-  srand(time(0));
-  getWindowSize();
+  srand(time(NULL));
   gameIni();
   gameLoop();
   releaseResources();
